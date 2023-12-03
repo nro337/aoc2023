@@ -41,19 +41,22 @@ function syncReadFile(filename) {
     }
     console.log(setsObj)
     let valid = true;
+    let maxes = {
+      "red": 0,
+      "green": 0,
+      "blue": 0,
+    }
     Object.keys(setsObj).forEach(key => {
       for (colorObj of setsObj[key]) {
         let clr = Object.keys(colorObj)[0]
         let num = Object.values(colorObj)[0]
-        if (num > possible[clr]) {
-          valid = false
+        if (num > maxes[clr]) {
+          maxes[clr] = num
         }
       }
     })
-    console.log(valid)
-    if (valid) {
-      total += parseInt(id)
-    }
+    let gameTotal = Object.values(maxes).reduce((a, b) => a*b)
+    total += gameTotal
 
   }
   console.log(total)
